@@ -9,6 +9,6 @@ class Countries(Base):
     id= Column(Integer, primary_key= True)
     name= Column(String, unique= True)
 
-    regencies= relationship('Provincies', back_populates= 'country', cascade='all, delete')
+    provincies= relationship('Provincies', back_populates= 'country', cascade='all, delete')
     regencies= relationship('Regencies', back_populates= 'country', cascade='all, delete')
-    regencies= relationship('Districts', back_populates= 'country', cascade='all, delete')
+    districts= relationship('Districts', back_populates= 'country', cascade='all, delete')

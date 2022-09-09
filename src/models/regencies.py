@@ -22,4 +22,4 @@ class Regencies(Base):
         ),
     )
     
-    regencies= relationship('Districts', back_populates= 'district', cascade='all, delete')
+    districts= relationship('Districts', back_populates= 'regency', cascade='all, delete')

@@ -9,6 +9,7 @@ pydantic = "*"
 sqlalchemy = "*"
 alembic = "*"
 jose = "*"
+fastapi-pagination = "*"
 
 [dev-packages]
 

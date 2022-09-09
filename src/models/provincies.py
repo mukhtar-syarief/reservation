@@ -9,9 +9,9 @@ class Provincies(Base):
     __tablename__ = 'provincies'
 
     id= Column(Integer, primary_key= True)
-    country_id= Column(Integer, ForeignKey('countries.id', ondelete= 'CASCADE'))
+    country_id= Column(Integer, ForeignKey('countries.id', ondelete= 'CASCADE'), nullable= False)
     name= Column(String, nullable= False)
 
   
-    regencies= relationship('Regencies', back_populates= 'regency', cascade='all, delete')
-    regencies= relationship('Districts', back_populates= 'regency', cascade='all, delete')
+    regencies= relationship('Regencies', back_populates= 'province', cascade='all, delete')
+    districts= relationship('Districts', back_populates= 'province', cascade='all, delete')

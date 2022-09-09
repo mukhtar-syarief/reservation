@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 
 from .base import Base
 
@@ -12,4 +13,7 @@ class TrainingCentre(Base):
     description= Column(String, nullable= True)
     detail_address= Column(String, nullable= True)
     is_active= Column(Boolean, server_default= True, nullable= False)
+
+
+    address = relationship('Districts')
     
