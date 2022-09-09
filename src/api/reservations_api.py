@@ -26,11 +26,11 @@ class ReservationsResponse(BaseModel):
 
 @router.get('', response_model=Page[ReservationsResponse])
 async def get_guest_reservation(
-    current_user: TokenData = Depends(get_token_data),
+    guest_data: TokenData = Depends(get_token_data),
     db: Session = Depends(get_db),
     params: Params = Depends()):
 
-    reservations = db.query(Reservations).filter(Reservations.guest_id == current_user.id)
+    reservations = db.query(Reservations).filter(Reservations.guest_id == guest_data.id)
     return paginate(reservations, params)
 
 
