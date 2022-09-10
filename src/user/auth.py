@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Optional
 from jose import jwt, JWTError
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -12,7 +13,7 @@ from ..config import get_config
 SECRET_KEY = get_config('SECRET_KEY', 'test')
 ALGORITHM = 'sha256'
 
-oauth2_schema = OAuth2PasswordBearer(tokenUrl= '/login')
+oauth2_schema = OAuth2PasswordBearer(tokenUrl= 'reservation/v1/login')
 
 class TokenData(BaseModel):
     id: int
@@ -22,9 +23,15 @@ class TokenData(BaseModel):
     phone: str
 
 
-async def create_access_token(guest_data: dict, expires_delta: timedelta = None):
-    
-    raise NotImplementedError
+async def create_access_token(guest_data: TokenData, expires_delta: Optional[timedelta]):
+    to_encode = guest_data.dict()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta        
+    else: 
+        expire = datetime.utcnow() + timedelta(minutes=30)
+    to_encode.update({'exp': expire})
+    encode = jwt.encode(to_encode, SECRET_KEY, ALGORITHM)
+    return encode
     
 
 async def get_token_data(token: str = Depends(oauth2_schema), db: Session = Depends(get_db)):

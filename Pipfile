@@ -10,6 +10,7 @@ sqlalchemy = "*"
 alembic = "*"
 jose = "*"
 fastapi-pagination = "*"
+uvicorn = "*"
 
 [dev-packages]
 

@@ -4,6 +4,7 @@ from fastapi_pagination import Page, Params
 from fastapi_pagination.ext.sqlalchemy import paginate
 from pydantic import BaseModel
 
+from ..models.invoices_guests import InvoiceGuestResponse
 from ..database import Session, get_db
 from ..models.reservations import Reservations
 from ..user.auth import TokenData, get_token_data
@@ -34,8 +35,10 @@ async def get_guest_reservation(
     return paginate(reservations, params)
 
 
-@router.post('')
-async def create_reservation():
+@router.post('', response_model=InvoiceGuestResponse)
+async def create_reservation(
+    payload,
+    db: Session = Depends(get_db)):
     raise NotImplementedError
 
 

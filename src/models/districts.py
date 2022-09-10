@@ -7,7 +7,7 @@ from .base import Base
 
 
 class Districts(Base):
-    __tablename__ = 'cities'
+    __tablename__ = 'districts'
 
     id= Column(Integer, primary_key= True)
     country_id= Column(Integer, nullable= False)
@@ -20,6 +20,6 @@ class Districts(Base):
     __table_args__ = (
         ForeignKeyConstraint(
             [country_id, province_id, regency_id],
-            ['countries.id', 'provincies.id', 'regencies.id'], ondelete= 'CASCADE'
+            ['regencies.country_id', 'regencies.province_id', 'regencies.id'], ondelete= 'CASCADE'
         ),
     )

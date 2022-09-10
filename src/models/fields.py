@@ -1,7 +1,21 @@
 from sqlalchemy import Column, Integer, String, ForeignKeyConstraint
+from pydantic import BaseModel
 
-from .field_types import FieldTypes
+from .field_types import FieldTypes, FieldTypeResponse
+from .training_centre import TrainingCentre
 from .base import Base
+
+
+class FieldResponse(BaseModel):
+    id: int
+    name: str
+    desc: str
+    current_price: str
+    type: FieldTypeResponse
+    training_centre: TrainingCentre
+
+    class Config:
+        orm_mode= True
 
 class Field(Base):
     __tablename__ = 'fields'

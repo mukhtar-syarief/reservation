@@ -1,7 +1,19 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
+from pydantic import BaseModel
 
+from .districts import Districts
 from .base import Base
+
+
+class TrainingngCentreResponse(BaseModel):
+    id: int
+    name: str
+    detail_address: str
+    is_active: bool
+
+    class Config:
+        orm_mode= True
 
 
 class TrainingCentre(Base):
@@ -16,4 +28,5 @@ class TrainingCentre(Base):
 
 
     address = relationship('Districts')
+    fields = relationship('Field', back_populates= 'training_centre')
     

@@ -6,7 +6,7 @@ from ..helper.hash_verify_password import hashing_password, verify_password
 from ..database import Session, get_db
 
 
-route = APIRouter(tags= "Login API")
+router = APIRouter(tags= "Login API")
 
 
 class LoginPayload(BaseModel):
@@ -14,7 +14,7 @@ class LoginPayload(BaseModel):
     password: str
 
 
-@route.post("")
+@router.post("")
 async def user_login(
     payload: LoginPayload,
     db: Session = Depends(get_db),

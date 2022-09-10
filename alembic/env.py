@@ -1,5 +1,23 @@
 from logging.config import fileConfig
 
+from src.config import get_config
+
+from src.models.countries import Countries
+from src.models.provincies import Provincies
+from src.models.regencies import Regencies
+from src.models.districts import Districts
+from src.models.guests import Guests
+from src.models.invoices_guests import InvoiceGuest
+from src.models.reservations import Reservations
+from src.models.field_reservations import FieldReservations
+from src.models.fields import Field
+from src.models.field_types import FieldTypes
+from src.models.payment import Payment
+from src.models.payment_types import PaymentType
+from src.models.payment_checks import PaymentCheck
+from src.models.training_centre import TrainingCentre
+
+
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -57,6 +75,11 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+
+
+    
+    section = config.config_ini_section
+    config.set_section_option(section, "SQLALCHEMY_DATABASE_URL", get_config("SQLALCHEMY_DATABASE_URL"))
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
